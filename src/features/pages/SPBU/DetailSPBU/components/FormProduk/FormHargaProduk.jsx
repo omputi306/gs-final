@@ -35,7 +35,7 @@ export default function FormHargaProduk() {
     }
   }
 
-  const initialValues = !dialogData.hargaProduk
+  const initialValues = !hargaUpdate(dialogData?.hargaProduk)
     ? {
         spbuUID: dialogData.idSPBU,
         harga: [],

@@ -29,7 +29,7 @@ export const SidebarItem = [
   { icon: StoreIcon, title: "Gerai SPBU", span: "", url: "/spbu" },
   // { icon: InventoryIcon, title: "Stok", span: "", url: "/stok" },
   { icon: NoteAltIcon, title: "Laporan", span: "", url: "/laporan" },
-  { icon: SupervisedUserCircleIcon, title: "User", span: "", url: "/user" },
+  { icon: SupervisedUserCircleIcon, title: "User", span: "", url: "/users" },
   { icon: DescriptionIcon, title: "Form Invoice", span: "", url: "/invoice" },
 ];
 

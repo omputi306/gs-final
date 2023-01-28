@@ -20,7 +20,7 @@ export default function TabelInvoice({ data, loading }) {
       ["filter", "all"],
     ])
   );
-console.log("Tabel Invoice", data)
+  console.log("Tabel Invoice", data);
   return (
     <>
       <Box paddingTop=".8rem" sx={{ flexGrow: 1 }}>
@@ -32,7 +32,7 @@ console.log("Tabel Invoice", data)
             <Paper>Side filter</Paper>
           </Grid>
           <Grid xs={9}>
-            <Paper>
+            <Paper sx={{ overflowX: "auto" }}>
               <Table>
                 <TableHead>
                   <TableRow>

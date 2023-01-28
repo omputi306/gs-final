@@ -5,6 +5,8 @@ import Spbu from "./features/pages/SPBU/Spbu";
 import ListSPBU from "./features/pages/SPBU/ListSPBU";
 import DetailSpbu from "./features/pages/SPBU/DetailSPBU/DetailSpbu";
 import Pesan from "./features/pages/SPBU/DetailSPBU/components/Pesan/Pesan";
+import Users from "./features/pages/Users/Users"
+import ListUsers from "./features/pages/Users/ListUsers"
 
 export default function MainRoutes() {
   return (
@@ -19,7 +21,10 @@ export default function MainRoutes() {
         </Route>
         <Route path="messages" element={<Pesan />}>
           <Route path="/messages" element={<Navigate replace to="inbox" />} />
-
+        </Route>
+        <Route path="users" element={<Users />}>
+          <Route path="/users" element={<Navigate replace to="list-users" />} />
+          <Route path="list-users" element={<ListUsers />} />
         </Route>
       </Routes>
     </>

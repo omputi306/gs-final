@@ -17,14 +17,14 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import NumericInput from "../../../../apps/common/Forms/NumericInput";
 import { uploadFileInvoiceToFirestore } from "../../../../apps/services/firestoreServices";
 // import { closeDialog } from "../../../../../../gunung-selatan-summary-master/src/apps/store/reducers/dialogReducer";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 import { closeDialog } from "../../../../apps/store/reducers/dialogReducer";
 
 export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
   const [file, setFile] = useState(null);
   const [tanggalInvoice, setTanggalInvoice] = useState(moment());
   const [kategoriPenjualan, setKategoriPenjualan] = useState("");
-  const dispatch = useDispatch
+  const dispatch = useDispatch;
 
   function hargaUpdate(data) {
     const hargaUpdate = data?.map((item) => item.harga);
@@ -103,24 +103,21 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
     <Box>
       <Formik
         initialValues={initialValues}
-        // validationSchema={schema}
-        onSubmit={async (
-          values,
-          { setSubmitting, setErrors, resetForm, errors }
-        ) => {
+        validationSchema={schema}
+        onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
           try {
             await uploadFileInvoiceToFirestore({ file, values });
             setSubmitting(false);
             toast.success(
               `Upload invoice ${values.jenisTransaksi} ${values.nomorInvoice} Berhasil`
             );
-            dispatch(closeDialog())
+            dispatch(closeDialog());
             resetForm();
           } catch (error) {
             setErrors({ upload: "Gangguan Sistem" });
-            toast.error(errors);
+            toast.error(error);
           }
-          console.log("forms", values);
+          // console.log("forms", values);
           // console.log(errors);
         }}
       >
@@ -207,15 +204,19 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
                         name={`produks.${index}.kodeProduk`}
                         placeholder="Pilih Jenis Produk"
                         label="Jenis Produk"
-                        options={hargaUpdate(dialogData?.hargaProduk).map(
-                          (item, index) => {
-                            return {
-                              key: index,
-                              value: item.kodeProduk,
-                              label: `${item.namaProduk} - ${item.kategoriHarga}`,
-                            };
-                          }
-                        )}
+                        options={
+                          hargaUpdate(dialogData?.hargaProduk)
+                            ? hargaUpdate(dialogData?.hargaProduk).map(
+                                (item, index) => {
+                                  return {
+                                    key: index,
+                                    value: item.kodeProduk,
+                                    label: `${item.namaProduk} - ${item.kategoriHarga}`,
+                                  };
+                                }
+                              )
+                            : null
+                        }
                         onChange={(e) => {
                           setFieldValue(
                             `produks.${index}.kodeProduk`,

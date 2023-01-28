@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExclamationTriangle,
-  faTrashCan
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -13,12 +13,15 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import moment from "moment";
 import InputField from "../../../../apps/common/Forms/InputField";
 import SelectInputField from "../../../../apps/common/Forms/SelectInputField";
-import { addInvoiceToFirestore, uploadFileInvoiceToFirestore } from "../../../../apps/services/firestoreServices";
+import {
+  addInvoiceToFirestore,
+  uploadFileInvoiceToFirestore,
+} from "../../../../apps/services/firestoreServices";
 import { closeDialog } from "../../../../apps/store/reducers/dialogReducer";
-import { useDispatch } from "react-redux"
+import { useDispatch } from "react-redux";
 
 export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const [tanggalPenyerahan, setTanggalPenyerahan] = useState(moment());
 
@@ -49,7 +52,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
     jenisTransaksi: jenisTransaksi,
     tanggalRencanaPenyerahan: "",
     terimaBarang: false,
-    produks: []
+    produks: [],
   };
 
   const schema = yup.object().shape({
@@ -60,7 +63,9 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
     jenisTransaksi: yup.string().required("Jenis transaksi tidak boleh kosong"),
     fileInvoice: yup
       .string()
-      .required("File invoice tidak boleh kosong (Hanya mendukung file PDF/JPG/JPEG/PNG)"),
+      .required(
+        "File invoice tidak boleh kosong (Hanya mendukung file PDF/JPG/JPEG/PNG)"
+      ),
     tanggalRencanaPenyerahan: yup
       .string()
       .required("Tanggal rencana penyerahan tidak boleh kosong"),
@@ -71,18 +76,18 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
           kodeProduk: yup.string().required("Kode produk tidak boleh kosong"),
           jenisProduk: yup.string().required("Jenis produk tidak boleh kosong"),
           jumlahRtl: yup.string().required("Jumlah RTL tidak boleh kosong"),
-          jumlahLiter: yup.string().required("Jumlah liter tidak boleh kosong")
+          jumlahLiter: yup.string().required("Jumlah liter tidak boleh kosong"),
         })
       )
       .min(1, "Produk produk yang dibeli (Kolom ini tidak boleh kosong)")
-      .required()
+      .required(),
   });
   // if (loading) return <>Loading...</>
   return (
     <Box>
       <Formik
         initialValues={initialValues}
-        // validationSchema={schema}
+        validationSchema={schema}
         onSubmit={async (values, { setSubmitting, setErrors, resetForm }) => {
           try {
             await uploadFileInvoiceToFirestore({ file, values });
@@ -90,7 +95,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
             toast.success(
               `Upload invoice ${values.jenisTransaksi} ${values.nomorInvoice} Berhasil`
             );
-            dispatch(closeDialog())
+            dispatch(closeDialog());
             resetForm();
           } catch (error) {
             setErrors({ upload: "Gangguan Sistem" });
@@ -110,7 +115,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
           resetForm,
           setErrors,
           setSubmitting,
-          errors
+          errors,
         }) => (
           <Form>
             <InputField name="spbuUID" label="ID SPBU" disabled />
@@ -143,8 +148,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
               type="file"
               name="fileInvoice"
               inputProps={{
-                accept:
-                  "application/pdf, image/jpg, image/jpeg, image/png"
+                accept: "application/pdf, image/jpg, image/jpeg, image/png",
               }}
               onChange={(e) => {
                 setFile(e.target.files[0]);
@@ -169,15 +173,17 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
                         name={`produks.${index}.kodeProduk`}
                         placeholder="Pilih Kode Produk"
                         label="Kode Produk"
-                        options={dialogData.allProduk?.map(
-                          (item, index) => {
-                            return {
-                              key: index,
-                              value: item.kodeProduk,
-                              label: `${item.kodeProduk}`,
-                            };
-                          }
-                        )}
+                        options={
+                          dialogData?.allProduk
+                            ? dialogData.allProduk?.map((item, index) => {
+                                return {
+                                  key: index,
+                                  value: item.kodeProduk,
+                                  label: `${item.kodeProduk}`,
+                                };
+                              })
+                            : null
+                        }
                         onChange={(e) => {
                           setFieldValue(
                             `produks.${index}.kodeProduk`,

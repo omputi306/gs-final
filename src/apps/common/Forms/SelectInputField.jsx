@@ -17,11 +17,17 @@ export default function SelectInputField({ ...props }) {
           {props.label}
         </InputLabel>
         <Select label={props.label} {...field} {...props}>
-          {props.options?.map((option) => (
-            <MenuItem key={option.key} value={option.value}>
-              {option.label}
+          {props.options ? (
+            props.options?.map((option) => (
+              <MenuItem key={option.key} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))
+          ) : (
+            <MenuItem>
+              <em>Empty</em>
             </MenuItem>
-          ))}
+          )}
         </Select>
         {meta.error && meta.touched ? (
           <FormHelperText sx={{ color: "red" }}>{meta.error}</FormHelperText>
