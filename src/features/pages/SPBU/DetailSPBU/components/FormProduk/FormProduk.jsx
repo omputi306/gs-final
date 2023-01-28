@@ -55,6 +55,7 @@ export default function FormProduk() {
   const addFields = ({ values, setValues }) => {
     const produk = [...values.produk];
     produk.push({
+      kodeProduk: "",
       namaProduk: "",
       kapasitasTangki: "",
     });
@@ -128,6 +129,14 @@ export default function FormProduk() {
                         alignItems="center"
                         key={index}
                       >
+                        <Box flex="1">
+                          <InputField
+                            type="text"
+                            name={`produk.${index}.kodeProduk`}
+                            label="Kode Produk"
+                            placeholder="Masukan Kode Produk"
+                          />
+                        </Box>
                         <Box flex="1">
                           <InputField
                             type="text"

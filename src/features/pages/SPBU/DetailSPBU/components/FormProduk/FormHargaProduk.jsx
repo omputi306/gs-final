@@ -25,7 +25,15 @@ export default function FormHargaProduk() {
   const { dialogData } = useSelector((state) => state.dialogs);
   const { loading } = useSelector((state) => state.async);
 
-  console.log("Harga =>", dialogData?.allProduk);
+  console.log("Form Harga Produk =>", dialogData?.hargaProduk);
+
+  function hargaUpdate(data) {
+    const hargaUpdate = data?.map((item) => item.harga);
+    for (let i = 0; i < hargaUpdate[0]?.length; i++) {
+      const hargaObj = hargaUpdate[i];
+      return hargaObj;
+    }
+  }
 
   const initialValues = !dialogData.hargaProduk
     ? {
@@ -34,7 +42,7 @@ export default function FormHargaProduk() {
       }
     : {
         spbuUID: dialogData.idSPBU,
-        harga: dialogData?.hargaProduk,
+        harga: hargaUpdate(dialogData?.hargaProduk),
       };
 
   const validationSchema = yup.object().shape({
@@ -56,6 +64,7 @@ export default function FormHargaProduk() {
   const addFields = ({ values, setValues }) => {
     const harga = [...values.harga];
     harga.push({
+      kodeProduk: "",
       namaProduk: "",
       kategoriHarga: "",
       hargaProduk: "",
@@ -133,16 +142,36 @@ export default function FormHargaProduk() {
                       >
                         <Box flex="1">
                           <SelectInputField
-                            name={`harga.${index}.namaProduk`}
+                            name={`harga.${index}.kodeProduk`}
                             options={dialogData?.allProduk?.map(
                               (item, index) => {
                                 return {
                                   key: index,
-                                  value: item.namaProduk,
-                                  label: item.namaProduk,
+                                  value: item.kodeProduk,
+                                  label: item.kodeProduk,
                                 };
                               }
                             )}
+                            onChange={(e) => {
+                              setFieldValue(
+                                `harga.${index}.kodeProduk`,
+                                e.target.value
+                              );
+                              setFieldValue(
+                                `harga.${index}.namaProduk`,
+                                dialogData?.allProduk.find(
+                                  (x) => x.kodeProduk === e.target.value
+                                ).namaProduk
+                              );
+                            }}
+                          />
+                        </Box>
+                        <Box flex="1">
+                          <InputField
+                            type="text"
+                            name={`harga.${index}.namaProduk`}
+                            label="Nama Produk"
+                            placeholder="Masukan Nama Produk"
                           />
                         </Box>
                         <Box flex="1">

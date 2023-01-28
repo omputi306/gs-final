@@ -1,9 +1,14 @@
 import React from "react";
 import { Avatar, Chip, IconButton } from "@mui/material";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
 import { openDialog } from "../../../../../apps/store/reducers/dialogReducer";
-import { deleteAdminSpbu, deleteUserSpbu } from "../../../../../apps/services/firestoreServices";
+import {
+  deleteAdminSpbu,
+  deleteUserSpbu,
+} from "../../../../../apps/services/firestoreServices";
+import { toast } from "react-toastify";
 
 export default function ChipUser({ uid, spbu, listUser, loading }) {
   const dispatch = useDispatch();
@@ -11,8 +16,13 @@ export default function ChipUser({ uid, spbu, listUser, loading }) {
     state.users.listUser.find((e) => e.id === uid)
   );
 
-  function handleDelete({ uid, spbu }) {
-    return deleteUserSpbu({ uid, spbu });
+  async function handleDelete({ uid, spbu }) {
+    try {
+      await deleteUserSpbu({ uid, spbu });
+      toast.success(`Admin pada ${spbu.namaSPBU} berhasil dihapus`);
+    } catch (error) {
+      toast.error(error);
+    }
   }
 
   if (loading) return <>Loading...</>;
@@ -41,7 +51,7 @@ export default function ChipUser({ uid, spbu, listUser, loading }) {
             )
           }
         >
-          User
+          <PersonAddIcon />
         </IconButton>
       )}
     </>

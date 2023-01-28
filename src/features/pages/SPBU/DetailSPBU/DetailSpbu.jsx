@@ -156,6 +156,7 @@ export default function DetailSpbu() {
               <ProfileSPBUCard
                 idSPBU={id}
                 data={detailSPBU}
+                hargaProduk={hargaProduk}
                 loading={loading}
               />
             </Grid>

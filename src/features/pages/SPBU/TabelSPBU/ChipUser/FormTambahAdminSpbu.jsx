@@ -15,7 +15,11 @@ import SelectInputField from "../../../../../apps/common/Forms/SelectInputField"
 import { closeDialog } from "../../../../../apps/store/reducers/dialogReducer";
 import InputField from "../../../../../apps/common/Forms/InputField";
 import * as yup from "yup";
-import { updateAdminSpbu } from "../../../../../apps/services/firestoreServices";
+import {
+  updateAdminSpbu,
+  updateUserSpbu,
+} from "../../../../../apps/services/firestoreServices";
+import { toast } from "react-toastify";
 
 export default function FormTambahAdminSpbu() {
   const dispatch = useDispatch();
@@ -35,7 +39,17 @@ export default function FormTambahAdminSpbu() {
       <Formik
         initialValues={initialValues}
         validationSchema={schema}
-        onSubmit={(values) => updateAdminSpbu(values)}
+        onSubmit={async (values) => {
+          try {
+            await updateUserSpbu(values);
+            toast.success(
+              `Admin pada ${values.namaSPBU} berhasil ditambahkan`
+            );
+            dispatch(closeDialog());
+          } catch (error) {
+            toast.error(error);
+          }
+        }}
       >
         {({ setFieldValue, resetForm }) => (
           <Form>
