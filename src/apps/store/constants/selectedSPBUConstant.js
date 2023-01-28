@@ -1,0 +1,1 @@
+export const SELECTED_SPBU = "SELECTED_SPBU"
