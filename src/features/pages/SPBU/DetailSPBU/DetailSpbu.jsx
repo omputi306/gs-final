@@ -146,6 +146,8 @@ export default function DetailSpbu() {
     }
   }
 
+  console.log("Tabel Invoice", createTableData(invoiceTransaksi))
+
   return (
     <section>
       <div className="main">

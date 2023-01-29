@@ -13,26 +13,13 @@ import {
 } from "recharts";
 
 function BarChartTransaksi({ data }) {
-  function createDataGrafik(data) {
-    const Data = [];
-    data?.map((item) => {
-      let obj = { tanggal: item.tanggalInvoice };
-      item.produks?.map((data) => {
-        obj[data.namaProduk] = data.jumlahLiter;
-      });
-      Data.push(obj);
-    });
-    return Data;
-  }
-
-  console.log("Pembelian Grafik", createDataGrafik(data));
-
+  console.log("Barchart Transaksi", data)
   return (
     <ResponsiveContainer width="100%" height={300}>
       <RechartBarChart
         width={500}
         height={300}
-        data={createDataGrafik(data)}
+        data={data}
         margin={{
           top: 5,
           right: 30,
@@ -66,7 +53,11 @@ export default function GrafikPenjualanReguler({ data, loading }) {
     <>
       <h3>Grafik Penjualan Reguler</h3>
       {!loading ? (
-        <BarChartTransaksi data={data} />
+        data?.length > 0 ? (
+          <BarChartTransaksi data={data} />
+        ) : (
+          <>Tidak ada Data</>
+        )
       ) : (
         <>Loading...</>
       )}

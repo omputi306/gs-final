@@ -1,5 +1,6 @@
 import asyncReducer from "./asyncReducer";
 import dialogReducer from "./dialogReducer";
+import grafikReducer from "./grafikReducer";
 import profileUserReducer from "./profileUsersReducer";
 // import produkReducer from "./produkReducer";
 import selectedSpbuReducer from "./selectedSPBUReducer";
@@ -20,6 +21,7 @@ const rootReducers = {
   listSPBU: spbuReducer,
   selectedSPBU: selectedSpbuReducer,
   dialogs: dialogReducer,
+  dataGrafik: grafikReducer,
 //   spbu: geraiSPBUReducer,
 //   auth: authReducer,
   users: profileUserReducer,

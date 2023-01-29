@@ -149,6 +149,7 @@ export function addInvoiceToFirestore({ values, url }) {
       jenisTransaksi: values.jenisTransaksi,
       kategoriPenjualan: values.kategoriPenjualan,
       creationDate: serverTimestamp(),
+      tanggalInvoice: moment(values.tanggalInvoice).format("DD-MM-YYYY") ,
       fileInvoice: url,
       approved: false,
       tanggalApprove: null,
@@ -191,6 +192,15 @@ export function uploadFileInvoiceToFirestore({ file, values }) {
 }
 
 // Grafik
+
+export function getDataGrafikPembelianFromFirestore() {
+  const colRef = collection(db, "invoices");
+  return query(colRef, where("jenisTransaksi", "==", "Pembelian"));
+}
+export function getDataGrafikPenjualanRegulerFromFirestore() {
+  const colRef = collection(db, "invoices");
+  return query(colRef, where("kategoriPenjualan", "==", "Reguler"));
+}
 
 export function getDataGrafikPenjualanRegulerGeraiFromFirestore(id) {
   const colRef = collection(db, "invoices");
@@ -248,7 +258,7 @@ export async function updateUserSpbu(values) {
   }
 }
 
-export async function deleteUserSpbu({uid, spbu }) {
+export async function deleteUserSpbu({ uid, spbu }) {
   const docRef = doc(db, "administrator", uid);
   try {
     updateDoc(docRef, { spbu: null }).then(() => {

@@ -16,9 +16,9 @@ function BarChartTransaksi({ data }) {
   function createDataGrafik(data) {
     const Data = [];
     data?.map((item) => {
-      let obj = { tanggal: item.tanggalInvoice };
+      let obj = { tanggal: moment(item.creationDate).format("DD-MM-YYYY") };
       item.produks?.map((data) => {
-        obj[data.namaProduk] = data.jumlahLiter;
+        obj[data.jenisProduk] = data.jumlahLiter;
       });
       Data.push(obj);
     });
@@ -61,12 +61,16 @@ function BarChartTransaksi({ data }) {
   );
 }
 
-export default function GrafikPenjualanReguler({ data, loading }) {
+export default function GrafikPembelian({ data, loading }) {
   return (
     <>
-      <h3>Grafik Penjualan Reguler</h3>
+      <h3>Grafik Pembelian</h3>
       {!loading ? (
-        <BarChartTransaksi data={data} />
+        data?.length > 0 ? (
+          <BarChartTransaksi data={data} />
+        ) : (
+          <>Tidak ada Data</>
+        )
       ) : (
         <>Loading...</>
       )}
