@@ -149,7 +149,7 @@ export function addInvoiceToFirestore({ values, url }) {
       jenisTransaksi: values.jenisTransaksi,
       kategoriPenjualan: values.kategoriPenjualan,
       creationDate: serverTimestamp(),
-      tanggalInvoice: moment(values.tanggalInvoice).format("DD-MM-YYYY") ,
+      tanggalInvoice: moment(values.tanggalInvoice).format("DD-MM-YYYY"),
       fileInvoice: url,
       approved: false,
       tanggalApprove: null,
@@ -171,11 +171,12 @@ export function addInvoiceToFirestore({ values, url }) {
       terimaBarang: false,
       approved: false,
       tanggalRencanaPenyerahan: values.tanggalRencanaPenyerahan,
+      tanggalInvoice: values.tanggalInvoice,
       tanggalApprove: null,
       produks: values.produks,
       date: {
-        bulan: moment(serverTimestamp()).format("MM"),
-        tahun: moment(serverTimestamp()).format("YYYY"),
+        bulan: moment(values.tanggalInvoice).format("MM"),
+        tahun: moment(values.tanggalInvoice).format("YYYY"),
       },
     });
   }

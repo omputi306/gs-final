@@ -1,6 +1,7 @@
 import asyncReducer from "./asyncReducer";
 import dialogReducer from "./dialogReducer";
 import grafikReducer from "./grafikReducer";
+import invoiceReducer from "./invoiceReducer";
 import profileUserReducer from "./profileUsersReducer";
 // import produkReducer from "./produkReducer";
 import selectedSpbuReducer from "./selectedSPBUReducer";
@@ -22,16 +23,16 @@ const rootReducers = {
   selectedSPBU: selectedSpbuReducer,
   dialogs: dialogReducer,
   dataGrafik: grafikReducer,
-//   spbu: geraiSPBUReducer,
-//   auth: authReducer,
+  //   spbu: geraiSPBUReducer,
+  //   auth: authReducer,
   users: profileUserReducer,
-//   reports: reportsReducer,
-//   invoices: invoiceReducer,
-//   produk: produkReducer,
-//   harga: hargaReducer,
-//   dataRegulerGerai: grafikPenjualanRegulerGeraiReducer,
-//   dataIndustriGerai: grafikPenjualanIndustriGeraiReducer,
-//   dataPembelianGerai: grafikPembelianGeraiReducer
+  //   reports: reportsReducer,
+  invoices: invoiceReducer,
+  //   produk: produkReducer,
+  //   harga: hargaReducer,
+  //   dataRegulerGerai: grafikPenjualanRegulerGeraiReducer,
+  //   dataIndustriGerai: grafikPenjualanIndustriGeraiReducer,
+  //   dataPembelianGerai: grafikPembelianGeraiReducer
 };
 
 export default rootReducers;

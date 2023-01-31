@@ -24,6 +24,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
   const dispatch = useDispatch();
   const [file, setFile] = useState(null);
   const [tanggalPenyerahan, setTanggalPenyerahan] = useState(moment());
+  const [tanggalInvoice, setTanggalInvoice] = useState(moment());
 
   const addFields = ({ values, setValues }) => {
     const produks = [...values.produks];
@@ -51,6 +52,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
     fileInvoice: "",
     jenisTransaksi: jenisTransaksi,
     tanggalRencanaPenyerahan: "",
+    tanggalInvoice: "",
     terimaBarang: false,
     produks: [],
   };
@@ -67,6 +69,9 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
         "File invoice tidak boleh kosong (Hanya mendukung file PDF/JPG/JPEG/PNG)"
       ),
     tanggalRencanaPenyerahan: yup
+      .string()
+      .required("Tanggal rencana penyerahan tidak boleh kosong"),
+    tanggalInvoice: yup
       .string()
       .required("Tanggal rencana penyerahan tidak boleh kosong"),
     produks: yup
@@ -137,6 +142,23 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
                 onChange={(e) => {
                   setTanggalPenyerahan(e);
                   setFieldValue("tanggalRencanaPenyerahan", e.toDate());
+                  console.log(e.toDate());
+                }}
+                renderInput={(params) => (
+                  <TextField fullWidth size="small" {...params} />
+                )}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DesktopDatePicker
+                label="Tanggal Invoice"
+                inputFormat="MM/DD/YYYY"
+                minDate={new Date()}
+                name="tanggalInvoice"
+                value={tanggalInvoice}
+                onChange={(e) => {
+                  setTanggalInvoice(e);
+                  setFieldValue("tanggalInvoice", e.toDate());
                   console.log(e.toDate());
                 }}
                 renderInput={(params) => (

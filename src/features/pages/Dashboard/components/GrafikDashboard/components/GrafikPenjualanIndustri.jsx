@@ -13,7 +13,6 @@ import {
 } from "recharts";
 
 function BarChartTransaksi({ data }) {
-  console.log("penjualan Industri", data);
   return (
     <ResponsiveContainer width="100%" height={300}>
       <RechartBarChart

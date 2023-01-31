@@ -7,6 +7,7 @@ import DetailSpbu from "./features/pages/SPBU/DetailSPBU/DetailSpbu";
 import Pesan from "./features/pages/SPBU/DetailSPBU/components/Pesan/Pesan";
 import Users from "./features/pages/Users/Users"
 import ListUsers from "./features/pages/Users/ListUsers"
+import Laporan from "./features/pages/Laporan/Laporan";
 
 export default function MainRoutes() {
   return (
@@ -26,6 +27,7 @@ export default function MainRoutes() {
           <Route path="/users" element={<Navigate replace to="list-users" />} />
           <Route path="list-users" element={<ListUsers />} />
         </Route>
+        <Route path="/laporan" element={<Laporan />} />
       </Routes>
     </>
   );

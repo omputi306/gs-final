@@ -5,6 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "react-toastify/dist/ReactToastify.css";
 import "react-circular-progressbar/dist/styles.css";
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configStore } from "./apps/store/configStore";
