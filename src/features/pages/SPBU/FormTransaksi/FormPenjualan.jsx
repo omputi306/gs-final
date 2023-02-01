@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { closeDialog } from "../../../../apps/store/reducers/dialogReducer";
 
 export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
+  const [kategoriHarga, setKategoriHarga] = useState("");
   const [file, setFile] = useState(null);
   const [tanggalInvoice, setTanggalInvoice] = useState(moment());
   const [kategoriPenjualan, setKategoriPenjualan] = useState("");
@@ -34,7 +35,12 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
     }
   }
 
-  console.log("Penjualan =>", hargaUpdate(dialogData.hargaProduk));
+  console.log(
+    "harga update =>",
+    hargaUpdate(dialogData.hargaProduk).filter(
+      (e) => e.kategoriHarga === "Industri"
+    )
+  );
 
   const addFields = ({ values, setValues }) => {
     const produks = [...values.produks];
@@ -150,6 +156,10 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
                 { key: "reguler", value: "Reguler", label: "Reguler" },
                 { key: "industri", value: "Industri", label: "Industri" },
               ]}
+              onChange={(e) => {
+                setKategoriHarga(e.target.value);
+                setFieldValue("kategoriPenjualan", e.target.value);
+              }}
             />
             <InputField
               name="totalHarga"
@@ -162,7 +172,7 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
                 label="Tanggal Invoice"
                 inputFormat="MM/DD/YYYY"
                 // placeholder="MM/DD/YYYY"
-                minDate={new Date()}
+                // minDate={new Date()}
                 name="tanggalInvoice"
                 value={tanggalInvoice}
                 onChange={(e) => {
@@ -206,15 +216,15 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
                         label="Jenis Produk"
                         options={
                           hargaUpdate(dialogData?.hargaProduk)
-                            ? hargaUpdate(dialogData?.hargaProduk).map(
-                                (item, index) => {
+                            ? hargaUpdate(dialogData?.hargaProduk)
+                                .filter((e) => e.kategoriHarga === kategoriHarga)
+                                .map((item, index) => {
                                   return {
                                     key: index,
                                     value: item.kodeProduk,
                                     label: `${item.namaProduk} - ${item.kategoriHarga}`,
                                   };
-                                }
-                              )
+                                })
                             : null
                         }
                         onChange={(e) => {
@@ -225,7 +235,7 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
                           setFieldValue(
                             `produks.${index}.hargaperliter`,
                             hargaUpdate(dialogData?.hargaProduk).find(
-                              (x) => x.kodeProduk === e.target.value
+                              (x) => x.kodeProduk === e.target.value && x.kategoriHarga === kategoriHarga
                             ).hargaProduk
                           );
                           setFieldValue(

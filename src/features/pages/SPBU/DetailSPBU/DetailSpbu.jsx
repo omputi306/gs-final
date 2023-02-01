@@ -126,7 +126,7 @@ export default function DetailSpbu() {
                 if (data[i].jenisTransaksi === "Pembelian") {
                   const invoices = {
                     nomorInvoice: _nomorInvoice,
-                    tanggal: data[i].creationDate,
+                    tanggal: data[i].tanggalInvoice,
                     fileInvoice: data[i].fileInvoice,
                   };
                   data[i].produks.forEach((element) => {

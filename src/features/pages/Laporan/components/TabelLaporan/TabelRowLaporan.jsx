@@ -1,5 +1,5 @@
 import React from "react";
-import { TableRow, TableCell } from "@mui/material";
+import { TableRow, TableCell, Button } from "@mui/material";
 import moment from "moment";
 
 export default function TabelRowLaporan({ item }) {
@@ -17,7 +17,7 @@ export default function TabelRowLaporan({ item }) {
           {item.jenisTransaksi} {item.kategoriPenjualan || null}
         </TableCell>
         <TableCell rowSpan={item.produks.length + 1}>
-          {item.fileInvoice}
+          <Button href={item.fileInvoice}>Download File Invoice</Button>
         </TableCell>
       </TableRow>
       <>

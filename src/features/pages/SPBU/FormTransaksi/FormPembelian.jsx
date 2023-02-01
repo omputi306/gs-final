@@ -136,7 +136,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
               <DesktopDatePicker
                 label="Tanggal Rencana Penyerahan"
                 inputFormat="MM/DD/YYYY"
-                minDate={new Date()}
+                // minDate={new Date()}
                 name="tanggalRencanaPenyerahan"
                 value={tanggalPenyerahan}
                 onChange={(e) => {
@@ -153,7 +153,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
               <DesktopDatePicker
                 label="Tanggal Invoice"
                 inputFormat="MM/DD/YYYY"
-                minDate={new Date()}
+                // minDate={new Date()}
                 name="tanggalInvoice"
                 value={tanggalInvoice}
                 onChange={(e) => {

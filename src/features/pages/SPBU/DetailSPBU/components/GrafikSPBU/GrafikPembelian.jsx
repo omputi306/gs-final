@@ -13,12 +13,23 @@ import {
 } from "recharts";
 
 function BarChartTransaksi({ data }) {
+  function createDataGrafik(data) {
+    const Data = [];
+    data?.map((item) => {
+      let obj = { tanggal: moment(item.tanggalInvoice).format("DD MMMM YYYY") };
+      item.produks?.map((data) => {
+        obj[data.jenisProduk] = data.jumlahLiter;
+      });
+      Data.push(obj);
+    });
+    return Data;
+  }
   return (
     <ResponsiveContainer width="100%" height={300}>
       <RechartBarChart
         width={500}
         height={300}
-        data={data}
+        data={createDataGrafik(data)}
         margin={{
           top: 5,
           right: 30,
@@ -51,13 +62,7 @@ export default function GrafikPembelian({ data, loading }) {
   return (
     <>
       <h3>Grafik Pembelian</h3>
-      {!loading ? (
-        <BarChartTransaksi data={data} />
-      ) : (
-        <>
-          Loading...
-        </>
-      )}
+      {!loading ? <BarChartTransaksi data={data} /> : <>Loading...</>}
     </>
   );
 }
