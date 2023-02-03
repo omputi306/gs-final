@@ -49,7 +49,7 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
       namaProduk: "",
       hargaperliter: "",
       jumlahRtl: "",
-      jumlahLiter: "",
+      jumlahLiter: 0,
     });
     setValues({ ...values, produks });
   };
@@ -170,7 +170,7 @@ export default function FormPenjualan({ jenisTransaksi, loding, dialogData }) {
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DesktopDatePicker
                 label="Tanggal Invoice"
-                inputFormat="MM/DD/YYYY"
+                inputFormat="DD/MMM/YYYY"
                 // placeholder="MM/DD/YYYY"
                 // minDate={new Date()}
                 name="tanggalInvoice"

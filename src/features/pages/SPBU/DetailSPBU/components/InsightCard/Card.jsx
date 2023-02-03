@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Paper } from "@mui/material";
+import { Box, Chip, Paper } from "@mui/material";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGasPump } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,11 @@ export default function Card({ dataTransaksi, produk, tangki }) {
     (totL, item) => totL + item[0]?.jumlahLiter,
     0
   );
+  // const totalLiterDibeli = pembelian?.reduce((totL, item) =>
+  //   item[0]?.lenght > 0 ? (totL + item[0]?.jumlahLiter, 0) : null
+  // );
+
+  console.log(totalLiterDibeli);
 
   console.log(produk, "==>", totalLiterTerjual);
   console.log("Pembelian =>", produk, "=>", totalLiterDibeli);
@@ -50,7 +55,7 @@ export default function Card({ dataTransaksi, produk, tangki }) {
                 padding: 8,
                 height: 20,
                 width: 20,
-                borderRadius: "50%",
+                borderRadius: "50%"
               }}
             />
           </Box>
@@ -58,8 +63,18 @@ export default function Card({ dataTransaksi, produk, tangki }) {
             <h2>{produk}</h2>
           </Box>
           <Box>
-            <h3>Terjual {totalLiterTerjual} Liter</h3>
+            {/* <h3>Terjual {totalLiterTerjual} Liter</h3> */}
             <h3>Sisa Stok {totalLiterDibeli - totalLiterTerjual} Liter</h3>
+            <Chip
+              label={
+                <h3>
+                  Refill {tangki - (totalLiterDibeli - totalLiterTerjual)} Liter
+                </h3>
+              }
+              variant="outlined"
+              color="warning"
+              size="small"
+            />
           </Box>
           <Box>
             <small>Last 24 hours</small>

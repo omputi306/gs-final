@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExclamationTriangle,
-  faTrashCan,
+  faTrashCan
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -15,7 +15,7 @@ import InputField from "../../../../apps/common/Forms/InputField";
 import SelectInputField from "../../../../apps/common/Forms/SelectInputField";
 import {
   addInvoiceToFirestore,
-  uploadFileInvoiceToFirestore,
+  uploadFileInvoiceToFirestore
 } from "../../../../apps/services/firestoreServices";
 import { closeDialog } from "../../../../apps/store/reducers/dialogReducer";
 import { useDispatch } from "react-redux";
@@ -32,7 +32,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
       kodeProduk: "",
       jenisProduk: "",
       jumlahRtl: "",
-      jumlahLiter: "",
+      jumlahLiter: 0
     });
     setValues({ ...values, produks });
   };
@@ -54,7 +54,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
     tanggalRencanaPenyerahan: "",
     tanggalInvoice: "",
     terimaBarang: false,
-    produks: [],
+    produks: []
   };
 
   const schema = yup.object().shape({
@@ -81,11 +81,11 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
           kodeProduk: yup.string().required("Kode produk tidak boleh kosong"),
           jenisProduk: yup.string().required("Jenis produk tidak boleh kosong"),
           jumlahRtl: yup.string().required("Jumlah RTL tidak boleh kosong"),
-          jumlahLiter: yup.string().required("Jumlah liter tidak boleh kosong"),
+          jumlahLiter: yup.string().required("Jumlah liter tidak boleh kosong")
         })
       )
       .min(1, "Produk produk yang dibeli (Kolom ini tidak boleh kosong)")
-      .required(),
+      .required()
   });
   // if (loading) return <>Loading...</>
   return (
@@ -120,7 +120,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
           resetForm,
           setErrors,
           setSubmitting,
-          errors,
+          errors
         }) => (
           <Form>
             <InputField name="spbuUID" label="ID SPBU" disabled />
@@ -132,45 +132,49 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
               type="number"
               inputProps={{ min: 0 }}
             />
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label="Tanggal Rencana Penyerahan"
-                inputFormat="MM/DD/YYYY"
-                // minDate={new Date()}
-                name="tanggalRencanaPenyerahan"
-                value={tanggalPenyerahan}
-                onChange={(e) => {
-                  setTanggalPenyerahan(e);
-                  setFieldValue("tanggalRencanaPenyerahan", e.toDate());
-                  console.log(e.toDate());
-                }}
-                renderInput={(params) => (
-                  <TextField fullWidth size="small" {...params} />
-                )}
-              />
-            </LocalizationProvider>
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDatePicker
-                label="Tanggal Invoice"
-                inputFormat="MM/DD/YYYY"
-                // minDate={new Date()}
-                name="tanggalInvoice"
-                value={tanggalInvoice}
-                onChange={(e) => {
-                  setTanggalInvoice(e);
-                  setFieldValue("tanggalInvoice", e.toDate());
-                  console.log(e.toDate());
-                }}
-                renderInput={(params) => (
-                  <TextField fullWidth size="small" {...params} />
-                )}
-              />
-            </LocalizationProvider>
+            <Box mb={1.5}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DesktopDatePicker
+                  label="Tanggal Invoice"
+                  inputFormat="DD/MMM/YYYY"
+                  // minDate={new Date()}
+                  name="tanggalInvoice"
+                  value={tanggalInvoice}
+                  onChange={(e) => {
+                    setTanggalInvoice(e);
+                    setFieldValue("tanggalInvoice", e.toDate());
+                    console.log(e.toDate());
+                  }}
+                  renderInput={(params) => (
+                    <TextField fullWidth size="small" {...params} />
+                  )}
+                />
+              </LocalizationProvider>
+            </Box>
+            <Box mb={1.5}>
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DesktopDatePicker
+                  label="Tanggal Rencana Penyerahan"
+                  inputFormat="DD/MMM/YYYY"
+                  // minDate={new Date()}
+                  name="tanggalRencanaPenyerahan"
+                  value={tanggalPenyerahan}
+                  onChange={(e) => {
+                    setTanggalPenyerahan(e);
+                    setFieldValue("tanggalRencanaPenyerahan", e.toDate());
+                    console.log(e.toDate());
+                  }}
+                  renderInput={(params) => (
+                    <TextField fullWidth size="small" {...params} />
+                  )}
+                />
+              </LocalizationProvider>
+            </Box>
             <InputField
               type="file"
               name="fileInvoice"
               inputProps={{
-                accept: "application/pdf, image/jpg, image/jpeg, image/png",
+                accept: "application/pdf, image/jpg, image/jpeg, image/png"
               }}
               onChange={(e) => {
                 setFile(e.target.files[0]);
@@ -201,7 +205,7 @@ export default function FormPembelian({ jenisTransaksi, dialogData, loading }) {
                                 return {
                                   key: index,
                                   value: item.kodeProduk,
-                                  label: `${item.kodeProduk}`,
+                                  label: `${item.kodeProduk}`
                                 };
                               })
                             : null

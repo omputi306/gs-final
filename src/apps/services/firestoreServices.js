@@ -112,6 +112,16 @@ export function getHargaProdukFromFirestore(id) {
 }
 
 // Pesan
+// Pesan
+
+export function addPesanToFirestore(values) {
+  return addDoc(collection(db, "pesanSingkat"), {
+    ...values,
+    creationDate: serverTimestamp(),
+    clicked: false,
+  });
+}
+
 export function getAllPesanFromFirestore(id) {
   const colRef = collection(db, "pesanSingkat");
   return query(
@@ -229,7 +239,7 @@ export function getDataGrafikPembelianGeraiFromFirestore(id) {
     colRef,
     where("spbuUID", "==", id),
     where("jenisTransaksi", "==", "Pembelian"),
-    orderBy("creationDate", "asc")
+    orderBy("tanggalInvoice", "asc")
   );
 }
 

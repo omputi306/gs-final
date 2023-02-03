@@ -5,6 +5,7 @@ import FormProduk from "../../../features/pages/SPBU/DetailSPBU/components/FormP
 import FormHargaProduk from "../../../features/pages/SPBU/DetailSPBU/components/FormProduk/FormHargaProduk";
 import Pesan from "../../../features/pages/SPBU/DetailSPBU/components/Pesan/Pesan";
 import FormTambahAdminSpbu from "../../../features/pages/SPBU/TabelSPBU/ChipUser/FormTambahAdminSpbu";
+import ComposePesan from "../../../features/pages/Dashboard/components/Pesan/Form/ComposePesan";
 
 export default function DialogManager() {
   const dialogLookup = {
@@ -13,6 +14,7 @@ export default function DialogManager() {
     FormHargaProduk,
     Pesan,
     FormTambahAdminSpbu,
+    ComposePesan,
     //   FormGerai,
     //   ConfirmDialog,
     //   DialogHarga,
