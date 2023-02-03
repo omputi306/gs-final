@@ -30,7 +30,6 @@ export default function DetailSpbu() {
   );
   const { loading } = useSelector((state) => state.async);
 
-  console.log(id);
   useFirestoreDoc({
     query: () => getSelectedSpbuFromFirestore(id),
     data: (spbu) => dispatch(listenToSelectedSPBU(spbu)),
@@ -146,8 +145,6 @@ export default function DetailSpbu() {
     }
   }
 
-  console.log("Tabel Invoice", createTableData(invoiceTransaksi))
-
   return (
     <section>
       <div className="main">
@@ -168,7 +165,7 @@ export default function DetailSpbu() {
                   hargaProduk={hargaProduk}
                   detailSPBU={detailSPBU}
                 />
-                <InsightCard idSPBU={id} data={detailSPBU} loading={loading} />
+                <InsightCard idSPBU={id} dataTransaksi={invoiceTransaksi} data={detailSPBU} loading={loading} />
                 <GrafikSpbu id={id} pesanPendek={dataPesanPendek} loading={loading} />
                 <TabelInvoice
                   data={createTableData(invoiceTransaksi)}

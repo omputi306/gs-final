@@ -9,7 +9,7 @@ import { getProdukSpbuFromFirestore } from "../../../../../../apps/services/fire
 import { listenToAllProduk } from "../../../../../../apps/store/actions/produkActions";
 import useFirestoreDoc from "../../../../../../apps/hooks/useFirestoreDoc";
 
-export default function InsightCard({ data, loading }) {
+export default function InsightCard({ dataTransaksi, data, loading }) {
   return (
     <>
       {!loading ? (
@@ -17,7 +17,12 @@ export default function InsightCard({ data, loading }) {
           data?.produkSPBU?.map((item, index) => {
             return (
               <Grid xs={4} key={index}>
-                <Card icon={item?.icon} produk={item?.namaProduk} />
+                <Card
+                  dataTransaksi={dataTransaksi}
+                  icon={item?.icon}
+                  produk={item?.namaProduk}
+                  tangki={item.kapasitasTangki}
+                />
               </Grid>
             );
           })

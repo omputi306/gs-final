@@ -149,7 +149,7 @@ export function addInvoiceToFirestore({ values, url }) {
       jenisTransaksi: values.jenisTransaksi,
       kategoriPenjualan: values.kategoriPenjualan,
       creationDate: serverTimestamp(),
-      tanggalInvoice: moment(values.tanggalInvoice).format("DD-MM-YYYY"),
+      tanggalInvoice: values.tanggalInvoice,
       fileInvoice: url,
       approved: false,
       tanggalApprove: null,

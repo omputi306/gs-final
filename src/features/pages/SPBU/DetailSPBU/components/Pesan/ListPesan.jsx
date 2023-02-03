@@ -12,7 +12,7 @@ import ListItemPesan from "./ListItemPesan";
 export default function ListPesan({ data, loading }) {
   return (
     <List
-      dense="true"
+      // dense="true"
       sx={{
         margin: 0,
         padding: 0,

@@ -17,21 +17,7 @@ import GrafikPembelian from "./components/GrafikPembelian";
 import GrafikPenjualanIndustri from "./components/GrafikPenjualanIndustri";
 import GrafikPenjualanReguler from "./components/GrafikPenjualanReguler";
 
-export default function GrafikDashboard() {
-  const [sortir, setSortir] = useState("DD MMMM YYYY");
-  const dispatch = useDispatch();
-  const { allInvoice } = useSelector((state) => state.invoices);
-  const { pembelian, penjualanReguler, penjualanIndustri } = useSelector(
-    (state) => state.dataGrafik
-  );
-  const { loading } = useSelector((state) => state.async);
-
-  useFirestoreCollection({
-    query: () => getAllInvoicesFromFirestore(),
-    data: (invoices) => dispatch(listenToAllInvoices(invoices)),
-    deps: [dispatch],
-  });
-
+export default function GrafikDashboard({ sortir, invoices, loading }) {
   function dataGrafik(data) {
     const dataBaru = {
       reguler: [],
@@ -90,43 +76,28 @@ export default function GrafikDashboard() {
     return dataBaru;
   }
 
-  console.log("uji coba", dataGrafik(allInvoice));
-
   return (
     <>
-      <Box mb={2} mt={3}>
-        <FormControl fullWidth size="small">
-          <InputLabel>Filter Grafik</InputLabel>
-          <Select
-            value={sortir}
-            label="Filter per"
-            onChange={(e) => setSortir(e.target.value)}
-          >
-            <MenuItem value={"DD MMMM YYYY"}>Hari</MenuItem>
-            <MenuItem value={"MMMM YYYY"}>Bulan</MenuItem>
-            <MenuItem value={"YYYY"}>Tahun</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Box sx={{ flexGrow: 1, marginTop: 1 }}>
+      <Box sx={{ flexGrow: 1, marginTop: 0 }}>
         <Paper sx={{ padding: "10px" }}>
           <GrafikPembelian
-            data={dataGrafik(allInvoice).pembelian}
+            data={dataGrafik(invoices).pembelian}
             loading={loading}
           />
         </Paper>
       </Box>
-      <Box sx={{ flexGrow: 1, marginTop: 1 }}>
+      <Box sx={{ flexGrow: 1, marginTop: 0 }}>
         <Grid
           marginTop={1}
           container
-          spacing={{ xs: 2, md: 2 }}
+          spacing={{ xs: 1, md: 1 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
+          p={0}
         >
           <Grid xs={4} sm={4} md={6}>
             <Paper sx={{ padding: "10px" }}>
               <GrafikPenjualanReguler
-                data={dataGrafik(allInvoice).reguler}
+                data={dataGrafik(invoices).reguler}
                 loading={loading}
               />
             </Paper>
@@ -134,7 +105,7 @@ export default function GrafikDashboard() {
           <Grid xs={4} sm={4} md={6}>
             <Paper sx={{ padding: "10px" }}>
               <GrafikPenjualanIndustri
-                data={dataGrafik(allInvoice).industri}
+                data={dataGrafik(invoices).industri}
                 loading={loading}
               />
             </Paper>

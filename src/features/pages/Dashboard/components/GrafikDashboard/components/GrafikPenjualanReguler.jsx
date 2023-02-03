@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import moment from "moment";
 import React, { PureComponent } from "react";
 import {
@@ -13,9 +14,8 @@ import {
 } from "recharts";
 
 function BarChartTransaksi({ data }) {
-  console.log("Barchart Transaksi", data)
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={250}>
       <RechartBarChart
         width={500}
         height={300}
@@ -56,7 +56,9 @@ export default function GrafikPenjualanReguler({ data, loading }) {
         data?.length > 0 ? (
           <BarChartTransaksi data={data} />
         ) : (
-          <>Tidak ada Data</>
+          <Box width="100%" height={250}>
+            Tidak ada Data
+          </Box>
         )
       ) : (
         <>Loading...</>

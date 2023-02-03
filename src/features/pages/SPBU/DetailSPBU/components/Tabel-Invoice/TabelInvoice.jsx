@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "@mui/material";
 import TabelRow from "./TabelRow";
-import useFirestoreCollection from "../../../../../../apps/hooks/useFirestoreCollection";
 
 export default function TabelInvoice({ data, loading }) {
   const [predicate, setPredicate] = useState(
@@ -20,7 +19,7 @@ export default function TabelInvoice({ data, loading }) {
       ["filter", "all"],
     ])
   );
-  console.log("Tabel Invoice", data);
+  // console.log("Tabel Invoice", data);
   return (
     <>
       <Box paddingTop=".8rem" sx={{ flexGrow: 1 }}>

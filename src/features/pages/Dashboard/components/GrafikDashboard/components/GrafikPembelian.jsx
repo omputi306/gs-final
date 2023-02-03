@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import moment from "moment";
 import React, { PureComponent } from "react";
 import {
@@ -14,7 +15,7 @@ import {
 
 function BarChartTransaksi({ data }) {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={250}>
       <RechartBarChart
         width={500}
         height={300}
@@ -55,10 +56,14 @@ export default function GrafikPembelian({ data, loading }) {
         data?.length > 0 ? (
           <BarChartTransaksi data={data} />
         ) : (
-          <>Tidak ada Data</>
+          <Box width="100%" height={250}>
+            Tidak ada Data
+          </Box>
         )
       ) : (
-        <>Loading...</>
+        <Box width="100%" height={250}>
+          Loading...
+        </Box>
       )}
     </>
   );

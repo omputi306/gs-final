@@ -4,7 +4,40 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGasPump } from "@fortawesome/free-solid-svg-icons";
 
-export default function Card({icon, produk, stok}) {
+export default function Card({ dataTransaksi, produk, tangki }) {
+  console.log("insight Card", produk, tangki);
+  const penjualan = dataTransaksi
+    ?.filter((e) => e.jenisTransaksi === "Penjualan")
+    .map((data) => data.produks?.filter((item) => item.namaProduk === produk));
+
+  const pembelian = dataTransaksi
+    ?.filter((e) => e.jenisTransaksi === "Pembelian")
+    .map((data) => data.produks?.filter((item) => item.jenisProduk === produk));
+
+  const totalLiterTerjual = penjualan?.reduce(
+    (totL, item) => totL + item[0]?.jumlahLiter,
+    0
+  );
+
+  const totalLiterDibeli = pembelian?.reduce(
+    (totL, item) => totL + item[0]?.jumlahLiter,
+    0
+  );
+
+  console.log(produk, "==>", totalLiterTerjual);
+  console.log("Pembelian =>", produk, "=>", totalLiterDibeli);
+  console.log(
+    "sisa stok =>",
+    ((totalLiterDibeli - totalLiterTerjual) / tangki) * 100
+  );
+  console.log(
+    "chart",
+    "==>",
+    (
+      ((totalLiterDibeli - totalLiterTerjual) / tangki) * 100 -
+      (totalLiterTerjual / tangki) * 100
+    ).toFixed(0)
+  );
   return (
     <Paper sx={{ padding: "10px" }}>
       <Box display="flex">
@@ -22,10 +55,11 @@ export default function Card({icon, produk, stok}) {
             />
           </Box>
           <Box>
-            <h3>{produk}</h3>
+            <h2>{produk}</h2>
           </Box>
           <Box>
-            <h2>{stok} Liter</h2>
+            <h3>Terjual {totalLiterTerjual} Liter</h3>
+            <h3>Sisa Stok {totalLiterDibeli - totalLiterTerjual} Liter</h3>
           </Box>
           <Box>
             <small>Last 24 hours</small>
@@ -39,11 +73,14 @@ export default function Card({icon, produk, stok}) {
         >
           <CircularProgressbar
             className="progress-bar"
-            value="60"
-            text={`60%`}
+            value={((totalLiterDibeli - totalLiterTerjual) / tangki) * 100}
+            text={`${(
+              ((totalLiterDibeli - totalLiterTerjual) / tangki) *
+              100
+            ).toFixed(0)}%`}
           />
         </Box>
       </Box>
     </Paper>
-  )
+  );
 }

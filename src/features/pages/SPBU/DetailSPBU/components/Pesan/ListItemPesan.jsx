@@ -29,7 +29,7 @@ export default function ListItemPesan({ item }) {
         primary={
           <>
             <Typography
-              component="h4"
+              component={'div'}
               sx={!item.clicked ? { fontWeight: "600" } : null}
             >
               {item.judul}
@@ -39,7 +39,7 @@ export default function ListItemPesan({ item }) {
         secondary={
           <>
             <Typography
-              component="span"
+              component={'div'}
               sx={{ transition: "none", fontSize: "13px" }}
             >
               {truncate(item.pesan, "40")}
