@@ -18,6 +18,7 @@ import GrafikPenjualanIndustri from "./components/GrafikPenjualanIndustri";
 import GrafikPenjualanReguler from "./components/GrafikPenjualanReguler";
 
 export default function GrafikDashboard({ sortir, invoices, loading }) {
+  
   function dataGrafik(data) {
     const dataBaru = {
       reguler: [],

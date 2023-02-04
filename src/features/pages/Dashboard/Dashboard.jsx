@@ -9,7 +9,7 @@ import {
   MenuItem,
   Tooltip,
   Button,
-  Typography
+  Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import GrafikDashboard from "./components/GrafikDashboard/GrafikDashboard";
@@ -18,13 +18,15 @@ import { DateRangePicker } from "react-date-range";
 import useFirestoreCollection from "../../../apps/hooks/useFirestoreCollection";
 import {
   getAllInvoicesFromFirestore,
-  getAllSpbuFromFirestore
+  getAllSpbuFromFirestore,
 } from "../../../apps/services/firestoreServices";
 import { listenToAllInvoices } from "../../../apps/store/actions/invoiceAction";
 import { listenToAllPesanSPBU } from "../../../apps/store/actions/pesanPendekAction";
 import { listenToAllSPBU } from "../../../apps/store/actions/listSpbuAction";
 import GrafikSpbu from "../SPBU/DetailSPBU/components/GrafikSPBU/GrafikSpbu";
 import { openDialog } from "../../../apps/store/reducers/dialogReducer";
+import GrafikRingkasanSpbu from "./components/GrafikDashboard/GrafikRingkasanSpbu";
+import InsightCard from "../SPBU/DetailSPBU/components/InsightCard/InsightCard";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -42,13 +44,13 @@ export default function Dashboard() {
   useFirestoreCollection({
     query: () => getAllInvoicesFromFirestore(),
     data: (invoicesData) => dispatch(listenToAllInvoices(invoicesData)),
-    deps: [dispatch]
+    deps: [dispatch],
   });
 
   useFirestoreCollection({
     query: () => getAllSpbuFromFirestore(),
     data: (spbu) => dispatch(listenToAllSPBU(spbu)),
-    deps: [dispatch]
+    deps: [dispatch],
   });
 
   const handleSelect = (date) => {
@@ -71,7 +73,7 @@ export default function Dashboard() {
   const selectionRange = {
     startDate: startDate,
     endDate: endDate,
-    key: "selection"
+    key: "selection",
   };
 
   return (
@@ -120,7 +122,7 @@ export default function Dashboard() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
                   }}
                 >
                   Fiter SPBU
@@ -159,7 +161,7 @@ export default function Dashboard() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "50px"
+                height: "50px",
               }}
             >
               PILIH SPBU TERLEBIH DAHULU
@@ -167,42 +169,7 @@ export default function Dashboard() {
           </Box>
         ) : (
           <>
-            <Box mt={3}>
-              <Paper>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="center"
-                  alignItems="center"
-                  height="120px"
-                >
-                  <Box>
-                    <Tooltip title="Buat Pesan Baru">
-                      <Button
-                        variant="contained"
-                        color="warning"
-                        onClick={() =>
-                          dispatch(
-                            openDialog({
-                              dialogType: "ComposePesan",
-                              dialogData: {
-                                spbuUID: spbuID
-                              }
-                            })
-                          )
-                        }
-                      >
-                        Tulis Pesan
-                      </Button>
-                    </Tooltip>
-                  </Box>
-                  <Box>
-                    <Typography>Kirim pesan kepada petugas SPBU</Typography>
-                  </Box>
-                </Box>
-              </Paper>
-            </Box>
-            <GrafikSpbu id={spbuID} loading={loading} />
+            <GrafikRingkasanSpbu id={spbuID} sortir={sortir} loading={loading} />
           </>
         )}
       </div>

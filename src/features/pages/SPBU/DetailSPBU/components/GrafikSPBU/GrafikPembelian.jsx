@@ -16,7 +16,7 @@ function BarChartTransaksi({ data }) {
   function createDataGrafik(data) {
     const Data = [];
     data?.map((item) => {
-      let obj = { tanggal: moment(item.tanggalInvoice).format("DD/MMM/YY") };
+      let obj = { tanggal: moment(item.tanggalInvoice).format("DD MMM YY") };
       item.produks?.map((data) => {
         obj[data.jenisProduk] = data.jumlahLiter;
       });
