@@ -30,7 +30,7 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [sortir, setSortir] = useState("DD MMMM YYYY");
+  const [sortir, setSortir] = useState("DD/MMM/YY");
   const { allInvoice } = useSelector((state) => state.invoices);
   const { loading } = useSelector((state) => state.async);
   const [invoices, setInvoices] = useState(allInvoice);
@@ -108,8 +108,8 @@ export default function Dashboard() {
                       label="Populasi Grafik"
                       onChange={(e) => setSortir(e.target.value)}
                     >
-                      <MenuItem value={"DD MMMM YYYY"}>Hari</MenuItem>
-                      <MenuItem value={"MMMM YYYY"}>Bulan</MenuItem>
+                      <MenuItem value={"DD MMM YY"}>Hari</MenuItem>
+                      <MenuItem value={"MMM YY"}>Bulan</MenuItem>
                       <MenuItem value={"YYYY"}>Tahun</MenuItem>
                     </Select>
                   </FormControl>

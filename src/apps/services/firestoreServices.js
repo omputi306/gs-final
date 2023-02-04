@@ -141,7 +141,9 @@ export function updateClickedPesan(id) {
 
 // Invoice
 export function getAllInvoicesFromFirestore() {
-  return collection(db, "invoices");
+  const colRef = collection(db, "invoices");
+  return query(colRef, orderBy("tanggalInvoice", "asc"));
+  // return collection(db, "invoices"), orderBy("tanggalInvoice", "asc");
 }
 
 export function getSelectedSpbuInvoicesFromFirestore(id) {
@@ -219,7 +221,7 @@ export function getDataGrafikPenjualanRegulerGeraiFromFirestore(id) {
     colRef,
     where("spbuUID", "==", id),
     where("kategoriPenjualan", "==", "Reguler"),
-    orderBy("creationDate", "asc")
+    orderBy("tanggalInvoice", "asc")
   );
 }
 
@@ -229,7 +231,7 @@ export function getDataGrafikPenjualanIndustriGeraiFromFirestore(id) {
     colRef,
     where("spbuUID", "==", id),
     where("kategoriPenjualan", "==", "Industri"),
-    orderBy("creationDate", "asc")
+    orderBy("tanggalInvoice", "asc")
   );
 }
 

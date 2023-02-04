@@ -5,7 +5,12 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { useDispatch } from "react-redux";
 import { openDialog } from "../../../../../apps/store/reducers/dialogReducer";
 
-export default function ProfileSPBUCard({ idSPBU, hargaProduk, data, loading }) {
+export default function ProfileSPBUCard({
+  idSPBU,
+  hargaProduk,
+  data,
+  loading,
+}) {
   const dispatch = useDispatch();
   if (loading) return <Paper>Loading...</Paper>;
   return (
@@ -86,7 +91,7 @@ export default function ProfileSPBUCard({ idSPBU, hargaProduk, data, loading }) 
                     dialogData: {
                       idSPBU: idSPBU,
                       allProduk: data?.produkSPBU,
-                      hargaProduk: hargaProduk
+                      hargaProduk: hargaProduk,
                     },
                   })
                 )
@@ -111,7 +116,7 @@ export default function ProfileSPBUCard({ idSPBU, hargaProduk, data, loading }) 
                           dialogData: {
                             idSPBU: idSPBU,
                             allProduk: data?.produkSPBU,
-                            hargaProduk: hargaProduk
+                            hargaProduk: hargaProduk,
                           },
                         })
                       )
@@ -122,10 +127,19 @@ export default function ProfileSPBUCard({ idSPBU, hargaProduk, data, loading }) 
                 </>
               ) : null
             ) : null}
-            <Button variant="outlined" onClick={() => dispatch(openDialog({
-              dialogType: "Pesan",
-              dialogData: {}
-            }))}>Pesan</Button>
+            {/* <Button
+              variant="outlined"
+              onClick={() =>
+                dispatch(
+                  openDialog({
+                    dialogType: "Pesan",
+                    dialogData: {},
+                  })
+                )
+              }
+            >
+              Pesan
+            </Button> */}
           </Box>
         </Box>
       </Box>
